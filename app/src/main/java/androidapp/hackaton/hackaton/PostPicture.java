@@ -2,8 +2,6 @@ package androidapp.hackaton.hackaton;
 
 import android.os.AsyncTask;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,7 +23,7 @@ public class PostPicture extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        try{
+        try {
             URL url = null;
             //todo: remove mock later
             if (isMock) {
@@ -46,11 +44,11 @@ public class PostPicture extends AsyncTask<Void, Void, Void> {
             int responseCode = connection.getResponseCode();
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            if(responseCode == 200){
+            if (responseCode == 200) {
                 inputStream = connection.getInputStream();
-                byte [] buffer = new byte[8192];
+                byte[] buffer = new byte[8192];
                 int bytesRead;
-                while((bytesRead = inputStream.read(buffer))!=-1){
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
                     byteArrayOutputStream.write(buffer, 0, bytesRead);
                 }
                 data = byteArrayOutputStream.toByteArray();
