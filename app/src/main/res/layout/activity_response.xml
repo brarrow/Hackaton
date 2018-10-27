@@ -4,34 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResponseActivity">
+    tools:context=".ResponseActivity"
+    tools:ignore="MissingDefaultResource">
 
     <ListView
         android:id="@+id/list_view"
         android:layout_width="350dp"
-        android:layout_height="187dp"
+        android:layout_height="313dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="310dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="163dp"
+        android:id="@+id/label_text_view"
+        android:layout_width="145dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="172dp"
         android:layout_marginTop="124dp"
         android:layout_marginEnd="163dp"
         android:layout_marginBottom="169dp"
-        android:text="TextView"
+        android:text="@string/label_text_view_text"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/list_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.344" />
 
 </android.support.constraint.ConstraintLayout>
