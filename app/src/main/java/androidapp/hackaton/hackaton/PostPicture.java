@@ -2,6 +2,9 @@ package androidapp.hackaton.hackaton;
 
 import android.os.AsyncTask;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,11 +20,20 @@ public class PostPicture extends AsyncTask<Void, Void, Void> {
     private static byte[] data;
     private static InputStream inputStream;
 
+    private static boolean isMock = true;
+
 
     @Override
     protected Void doInBackground(Void... voids) {
         try{
-            URL url = new URL(this.url);
+            URL url = null;
+            //todo: remove mock later
+            if (isMock) {
+                url = new URL(this.url + "mock");
+            } else {
+                url = new URL(this.url);
+            }
+
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setDoInput(true);
