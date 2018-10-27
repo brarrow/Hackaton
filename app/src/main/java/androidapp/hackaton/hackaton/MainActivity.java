@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -45,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
         urlsList.add("https://stackoverflow.com/questions/18831948/how-parsing-jsonarray-in-java-with-json-simple");
         urlsList.add("https://yandex.ru");
         intent.putStringArrayListExtra("urls", urlsList);
+
+        //try to transfer an image
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        bitmap.recycle();
+
+        intent.putExtra("image", byteArray);
         startActivity(intent);
     }
 }
