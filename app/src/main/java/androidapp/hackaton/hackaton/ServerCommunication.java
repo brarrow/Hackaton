@@ -1,9 +1,17 @@
 package androidapp.hackaton.hackaton;
 
+import android.content.Intent;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -18,8 +26,8 @@ public class ServerCommunication {
     private final OkHttpClient client = new OkHttpClient();
 
 
-    public void uploadUserPhoto(File image) {
-        final RequestBody requestBody = new MultipartBody.Builder()
+    public String uploadUserPhoto(File image) throws Exception {
+        RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("image", "logo-square.png",
                         RequestBody.create(MediaType.parse("image/png"), image))
@@ -30,17 +38,11 @@ public class ServerCommunication {
                 .post(requestBody)
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("okhttp-res", e.getMessage());
-            }
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.i("okhttp-res", response.body().string());
-            }
-        });
+            return response.body().string();
+        }
     }
 
 }

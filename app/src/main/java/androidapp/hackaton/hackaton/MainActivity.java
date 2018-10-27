@@ -27,6 +27,7 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
+    private ServerCommunication communication = new ServerCommunication();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        serverCommunication.uploadUserPhoto(f);
-        imageView.setImageBitmap(bitmap);
 
+        imageView.setImageBitmap(bitmap);
+        final PostPhotoTask postPhotoTask = new PostPhotoTask(communication, this);
+        postPhotoTask.execute(f);
 
     }
 }
