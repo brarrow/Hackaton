@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
         //imageView.setImageBitmap(bitmap);
 
         Intent intent = new Intent(this, ResponseActivity.class);
-//        intent.putExtra("label", "AAAAAAAAAAAaaaaaaaaaaaaAAAAAAAAAAAA");
-//        ArrayList<String> urlsList = new ArrayList<>();
-//        urlsList.add("AAAAAAAAAAAA");
-//        urlsList.add("BBBBBBBBBBBB");
-//        intent.putStringArrayListExtra("urls", urlsList);
+        intent.putExtra("label", "Some duck or another cool shit");
+        ArrayList<String> urlsList = new ArrayList<>();
+        urlsList.add("https://stackoverflow.com/questions/18831948/how-parsing-jsonarray-in-java-with-json-simple");
+        urlsList.add("https://yandex.ru");
+        intent.putStringArrayListExtra("urls", urlsList);
         startActivity(intent);
     }
 }
