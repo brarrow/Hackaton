@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     @Override
@@ -34,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
+        //imageView.setImageBitmap(bitmap);
+
+        Intent intent = new Intent(this, ResponseActivity.class);
+//        intent.putExtra("label", "AAAAAAAAAAAaaaaaaaaaaaaAAAAAAAAAAAA");
+//        ArrayList<String> urlsList = new ArrayList<>();
+//        urlsList.add("AAAAAAAAAAAA");
+//        urlsList.add("BBBBBBBBBBBB");
+//        intent.putStringArrayListExtra("urls", urlsList);
+        startActivity(intent);
     }
 }

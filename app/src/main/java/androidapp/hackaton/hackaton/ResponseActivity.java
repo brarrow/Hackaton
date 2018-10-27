@@ -1,8 +1,11 @@
 package androidapp.hackaton.hackaton;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,9 +37,17 @@ public class ResponseActivity extends AppCompatActivity {
 
         this.labelTextView.setText(label);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, urls);
+        this.listView.setAdapter(sAdapter);
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(urls.get(position)));
+                startActivity(i);
+            }
+        });
 
-        this.listView.setAdapter(adapter);
     }
 }
