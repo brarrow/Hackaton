@@ -26,7 +26,7 @@ public class JsonCreator {
         JsonObject jsonObject = jsonParser.parse(json).getAsJsonObject();
 
         Gson gson = new Gson();
-        return gson.fromJson("urls", new TypeToken<List<String>>(){}.getType());
+        return gson.fromJson(jsonObject.get("urls").toString(), new TypeToken<List<String>>(){}.getType());
     }
 
     String getLabel(String json) {
