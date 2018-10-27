@@ -72,10 +72,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        
         serverCommunication.uploadUserPhoto(f);
-        //imageView.setImageBitmap(bitmap);
+        imageView.setImageBitmap(bitmap);
 
 
     }
