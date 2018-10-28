@@ -1,6 +1,8 @@
 package androidapp.hackaton.hackaton;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ public class ResponseActivity extends AppCompatActivity {
 
     private ListView listView;
     private TextView labelTextView;
+    private ImageView imageView;
 
     private String label = "default-label";
     private List<String> urls = Arrays.asList("www.default-urls.ru", "apmath.spbu.ru", "abcd");
@@ -33,8 +36,19 @@ public class ResponseActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.list_view);
         labelTextView = findViewById(R.id.label_text_view);
+        imageView = findViewById(R.id.imageView);
+
+        //передний план текстовой вьюхи
+        labelTextView.bringToFront();
 
         Intent intent = getIntent();
+
+        if (intent.getByteArrayExtra("image") != null) {
+            byte[] byteImage = intent.getByteArrayExtra("image");
+            Bitmap bitmapImage = BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
+
+            imageView.setImageBitmap(bitmapImage);
+        }
 
         label = intent.getStringExtra("label");
         urls = intent.getStringArrayListExtra("urls");

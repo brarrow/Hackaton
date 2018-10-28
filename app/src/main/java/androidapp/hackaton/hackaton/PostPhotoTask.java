@@ -1,11 +1,13 @@
 package androidapp.hackaton.hackaton;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +50,7 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
 
             intent.putStringArrayListExtra("urls", urls);
 
-            //todo: remove this mock and put real data lul
+            //todo: remove these mocks and put real data lul
             ArrayList<String> prices = new ArrayList<>();
             for (int i = 1; i <= urls.size(); ++i) {
                 prices.add(i + "0 000");
@@ -61,6 +63,14 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
 
             intent.putStringArrayListExtra("prices", prices);
             intent.putStringArrayListExtra("names", names);
+
+            //try to transfer an image
+//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//            byte[] byteArray = stream.toByteArray();
+//            bitmap.recycle();
+
+//            intent.putExtra("image", byteArray);
 
             mainActivity.startActivity(intent);
         } catch (Exception e) {
