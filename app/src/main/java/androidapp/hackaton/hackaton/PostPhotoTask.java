@@ -1,11 +1,13 @@
 package androidapp.hackaton.hackaton;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -35,17 +37,32 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
             Intent intent = new Intent(mainActivity, ResponseActivity.class);
             final JSONObject jsonObject = new JSONObject(s);
             String label = jsonObject.getString("label");
-            JSONArray jsonArray = jsonObject.getJSONArray("urls");
-
-            ArrayList<String> urls = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                urls.add(jsonArray.getString(i));
-            }
 
             intent.putExtra("label", label);
 
+            JSONArray jsonArrayUrls = jsonObject.getJSONArray("urls");
+            ArrayList<String> urls = new ArrayList<>();
+            for (int i = 0; i < jsonArrayUrls.length(); i++) {
+                urls.add(jsonArrayUrls.getString(i));
+            }
+
             intent.putStringArrayListExtra("urls", urls);
 
+            JSONArray jsonArrayPrices = jsonObject.getJSONArray("prices");
+            ArrayList<String> prices = new ArrayList<>();
+            for (int i = 0; i < jsonArrayPrices.length(); ++i) {
+                prices.add(jsonArrayPrices.getString(i));
+            }
+
+            intent.putStringArrayListExtra("prices", prices);
+
+            JSONArray jsonArrayTitles = jsonObject.getJSONArray("titles");
+            ArrayList<String> titles = new ArrayList<>();
+            for (int i = 0; i < jsonArrayTitles.length(); ++i) {
+                titles.add(jsonArrayTitles.getString(i));
+            }
+
+            intent.putStringArrayListExtra("titles", titles);
 
             mainActivity.startActivity(intent);
         } catch (Exception e) {
