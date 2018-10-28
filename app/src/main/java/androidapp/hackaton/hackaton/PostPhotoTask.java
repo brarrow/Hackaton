@@ -62,7 +62,7 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
             }
 
             intent.putStringArrayListExtra("prices", prices);
-            intent.putStringArrayListExtra("names", names);
+            intent.putStringArrayListExtra("titles", names);
 
             //try to transfer an image
 //            ByteArrayOutputStream stream = new ByteArrayOutputStream();

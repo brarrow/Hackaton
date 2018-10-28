@@ -3,6 +3,8 @@ package androidapp.hackaton.hackaton;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +37,11 @@ public class ResponseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_response);
 
         listView = findViewById(R.id.list_view);
+
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setStroke(2, Color.BLACK);
+        listView.setBackground(drawable);
+
         labelTextView = findViewById(R.id.label_text_view);
         imageView = findViewById(R.id.imageView);
 
@@ -52,7 +59,7 @@ public class ResponseActivity extends AppCompatActivity {
 
         label = intent.getStringExtra("label");
         urls = intent.getStringArrayListExtra("urls");
-        names = intent.getStringArrayListExtra("names");
+        names = intent.getStringArrayListExtra("titles");
         prices = intent.getStringArrayListExtra("prices");
 
         this.labelTextView.setText(label);
@@ -61,7 +68,7 @@ public class ResponseActivity extends AppCompatActivity {
 
         for (int i = 0; i < urls.size(); ++i) {
             StringBuilder builder = new StringBuilder("");
-            builder.append("Name: ").append(names.get(i)).append("\nPrice: ").append(prices.get(i));
+            builder.append("Title: ").append(names.get(i)).append("\nPrice: ").append(prices.get(i));
 
             listForAdapter.add(builder.toString());
         }
