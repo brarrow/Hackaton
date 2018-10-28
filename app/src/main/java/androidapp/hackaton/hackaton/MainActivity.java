@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnGallery = findViewById(R.id.btnGallery);
         imageView = findViewById(R.id.ImageView);
 
+        imageView.setImageResource(R.drawable.ytka);
+
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
