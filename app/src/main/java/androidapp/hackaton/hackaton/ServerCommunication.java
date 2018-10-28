@@ -22,11 +22,11 @@ public class ServerCommunication {
     public String uploadUserPhoto(File image) throws Exception {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("image", "logo-square.png",
+                .addFormDataPart("FILE", "logo-square.png",
                         RequestBody.create(MediaType.parse("image/png"), image))
                 .build();
         Request request = new Request.Builder()
-                .url("http://djangoimghandlerenv.y39mhtmw34.us-west-2.elasticbeanstalk.com/mock")
+                .url("http://djangoimghandlerenv.y39mhtmw34.us-west-2.elasticbeanstalk.com/image")
                 .post(requestBody)
                 .build();
 
