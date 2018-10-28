@@ -6,4 +6,5 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="label_text_view_text">Default_text</string>
     <string name="image_view_desc">Bounded image</string>
+    <string name="title_activity_no_content">NoContent</string>
 </resources>

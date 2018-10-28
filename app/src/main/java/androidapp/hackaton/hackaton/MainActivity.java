@@ -27,6 +27,7 @@ import static androidapp.hackaton.hackaton.RealPathUtils.getFilePath;
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     private ServerCommunication communication = new ServerCommunication();
+    private NoContent noContent = new NoContent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //write the bytes in file
-        final PostPhotoTask postPhotoTask = new PostPhotoTask(communication, this);
+        final PostPhotoTask postPhotoTask = new PostPhotoTask(communication, this, noContent);
         postPhotoTask.execute(image);
 
     }
