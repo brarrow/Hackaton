@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class PostPhotoTask extends AsyncTask<File, Integer, String> {
     private final ServerCommunication communication;
     private final MainActivity mainActivity;
+    private volatile File processingFile;
 
     public PostPhotoTask(ServerCommunication communication, MainActivity mainActivity) {
         this.communication = communication;
@@ -24,7 +25,8 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
     @Override
     protected String doInBackground(File... files) {
         try {
-            return communication.uploadUserPhoto(files[0]);
+            processingFile = files[0];
+            return communication.uploadUserPhoto(processingFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,6 +41,7 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
             String label = jsonObject.getString("label");
 
             intent.putExtra("label", label);
+            intent.putExtra("originFile", processingFile);
 
             JSONArray jsonArrayUrls = jsonObject.getJSONArray("urls");
             ArrayList<String> urls = new ArrayList<>();

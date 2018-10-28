@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,7 @@ public class ResponseActivity extends AppCompatActivity {
     private List<String> urls = Arrays.asList("www.default-urls.ru", "apmath.spbu.ru", "abcd");
     private List<String> names = Arrays.asList("default-url1", "default-url2", "def3");
     private List<String> prices = Arrays.asList("100 000", "322", "228");
+    private File originFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +51,13 @@ public class ResponseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if (intent.getByteArrayExtra("image") != null) {
-            byte[] byteImage = intent.getByteArrayExtra("image");
-            Bitmap bitmapImage = BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
-
-            imageView.setImageBitmap(bitmapImage);
-        }
 
         label = intent.getStringExtra("label");
         urls = intent.getStringArrayListExtra("urls");
         names = intent.getStringArrayListExtra("titles");
         prices = intent.getStringArrayListExtra("prices");
+        originFile = (File) intent.getSerializableExtra("originFile");
+        imageView.setImageURI(Uri.fromFile(originFile));
 
         this.labelTextView.setText(label);
 

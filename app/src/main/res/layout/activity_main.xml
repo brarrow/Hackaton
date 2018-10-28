@@ -20,19 +20,24 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <include
+        layout="@layout/content_main"
+        android:layout_height="548dp" />
 
     <Button
         android:id="@+id/btnCamera"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="#cfff95"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"/>
+        android:layout_gravity="bottom|end" />
 
     <Button
         android:id="@+id/btnGallery"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"/>
+        android:layout_gravity="bottom|start" />
 
     <ImageView
         android:id="@+id/ImageView"
