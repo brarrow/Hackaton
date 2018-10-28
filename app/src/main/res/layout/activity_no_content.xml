@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".NoContent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,44 +20,21 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include
-        layout="@layout/content_main"
-        android:layout_height="548dp" />
-
-    <Button
-        android:id="@+id/btnCamera"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:text="photo"/>
+    <include layout="@layout/content_no_content" />
 
     <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/btnCamera"-->
+        <!--android:id="@+id/fab"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:layout_gravity="bottom|end"-->
         <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--/>-->
-    <Button
-        android:id="@+id/btnGallery"
-        style="@style/Widget.AppCompat.Button.Colored"
+        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:text="gallery"/>
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/btnGallery"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|start"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--/>-->
-
-    <ImageView
-        android:id="@+id/ImageView"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="5" />
+        android:layout_gravity="center|center_vertical"
+        android:text="К сожалению не удалось распознать фотографию" />
 
 </android.support.design.widget.CoordinatorLayout>

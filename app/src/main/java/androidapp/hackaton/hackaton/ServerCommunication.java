@@ -32,7 +32,9 @@ public class ServerCommunication {
 
         try (Response response = client.newCall(request).execute()) {
             if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
+            else if(response.code() == 204){
+                throw new NoContentException();
+            }
             return response.body().string();
         }
     }
