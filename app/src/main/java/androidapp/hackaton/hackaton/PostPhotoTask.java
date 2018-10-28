@@ -48,6 +48,19 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
 
             intent.putStringArrayListExtra("urls", urls);
 
+            //todo: remove this mock and put real data lul
+            ArrayList<String> prices = new ArrayList<>();
+            for (int i = 1; i <= urls.size(); ++i) {
+                prices.add(i + "0 000");
+            }
+
+            ArrayList<String> names = new ArrayList<>();
+            for (int i = 1; i <= urls.size(); ++i) {
+                names.add("SomeCoolNameMkay-" + i);
+            }
+
+            intent.putStringArrayListExtra("prices", prices);
+            intent.putStringArrayListExtra("names", names);
 
             mainActivity.startActivity(intent);
         } catch (Exception e) {

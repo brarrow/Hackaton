@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class ResponseActivity extends AppCompatActivity {
 
     private String label = "default-label";
     private List<String> urls = Arrays.asList("www.default-urls.ru", "apmath.spbu.ru", "abcd");
+    private List<String> names = Arrays.asList("default-url1", "default-url2", "def3");
+    private List<String> prices = Arrays.asList("100 000", "322", "228");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +38,22 @@ public class ResponseActivity extends AppCompatActivity {
 
         label = intent.getStringExtra("label");
         urls = intent.getStringArrayListExtra("urls");
+        names = intent.getStringArrayListExtra("names");
+        prices = intent.getStringArrayListExtra("prices");
 
         this.labelTextView.setText(label);
 
+        List<String> listForAdapter = new ArrayList<>();
+
+        for (int i = 0; i < urls.size(); ++i) {
+            StringBuilder builder = new StringBuilder("");
+            builder.append("Name: ").append(names.get(i)).append("\nPrice: ").append(prices.get(i));
+
+            listForAdapter.add(builder.toString());
+        }
+
         ArrayAdapter<String> sAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, urls);
+                android.R.layout.simple_list_item_1, listForAdapter);
         this.listView.setAdapter(sAdapter);
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
