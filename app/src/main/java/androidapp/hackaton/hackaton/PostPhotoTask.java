@@ -39,38 +39,32 @@ public class PostPhotoTask extends AsyncTask<File, Integer, String> {
             Intent intent = new Intent(mainActivity, ResponseActivity.class);
             final JSONObject jsonObject = new JSONObject(s);
             String label = jsonObject.getString("label");
-            JSONArray jsonArray = jsonObject.getJSONArray("urls");
-
-            ArrayList<String> urls = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                urls.add(jsonArray.getString(i));
-            }
 
             intent.putExtra("label", label);
 
-            intent.putStringArrayListExtra("urls", urls);
-
-            //todo: remove these mocks and put real data lul
-            ArrayList<String> prices = new ArrayList<>();
-            for (int i = 1; i <= urls.size(); ++i) {
-                prices.add(i + "0 000");
+            JSONArray jsonArrayUrls = jsonObject.getJSONArray("urls");
+            ArrayList<String> urls = new ArrayList<>();
+            for (int i = 0; i < jsonArrayUrls.length(); i++) {
+                urls.add(jsonArrayUrls.getString(i));
             }
 
-            ArrayList<String> names = new ArrayList<>();
-            for (int i = 1; i <= urls.size(); ++i) {
-                names.add("SomeCoolNameMkay-" + i);
+            intent.putStringArrayListExtra("urls", urls);
+
+            JSONArray jsonArrayPrices = jsonObject.getJSONArray("prices");
+            ArrayList<String> prices = new ArrayList<>();
+            for (int i = 0; i < jsonArrayPrices.length(); ++i) {
+                prices.add(jsonArrayPrices.getString(i));
             }
 
             intent.putStringArrayListExtra("prices", prices);
-            intent.putStringArrayListExtra("titles", names);
 
-            //try to transfer an image
-//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//            byte[] byteArray = stream.toByteArray();
-//            bitmap.recycle();
+            JSONArray jsonArrayTitles = jsonObject.getJSONArray("titles");
+            ArrayList<String> titles = new ArrayList<>();
+            for (int i = 0; i < jsonArrayTitles.length(); ++i) {
+                titles.add(jsonArrayTitles.getString(i));
+            }
 
-//            intent.putExtra("image", byteArray);
+            intent.putStringArrayListExtra("titles", titles);
 
             mainActivity.startActivity(intent);
         } catch (Exception e) {
