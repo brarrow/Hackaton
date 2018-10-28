@@ -1,45 +1,59 @@
 package androidapp.hackaton.hackaton;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.util.stream.Stream;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import static androidapp.hackaton.hackaton.RealPathUtils.getFilePath;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     private ServerCommunication communication = new ServerCommunication();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button btnCamera = findViewById(R.id.btnCamera);
+        Button btnGallery = findViewById(R.id.btnGallery);
         imageView = findViewById(R.id.ImageView);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent  intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 0);
+
+            }
+        });
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, 1);
             }
         });
     }
@@ -47,36 +61,66 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        ServerCommunication serverCommunication = new ServerCommunication();
-        File f;
-        try {
-            f = File.createTempFile("tmpFile", ".png", getCacheDir());
-        } catch (IOException e) {
-            Log.e("activity", e.getMessage());
-            throw new RuntimeException(e);
+        File image = null;
+        Bitmap bitmap;
+        if (requestCode == 1) {
+            final Uri imageUri = data.getData();
+
+            try {
+                image = new File(getFilePath(this, imageUri));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            imageView.setImageURI(imageUri);
+        } else {
+            bitmap = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            byte[] bitmapdata = bos.toByteArray();
+            try {
+                image = File.createTempFile("tmpFile", ".png", getCacheDir());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try (FileOutputStream fos = new FileOutputStream(image)) {
+                fos.write(bitmapdata);
+                fos.flush();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            imageView.setImageBitmap(bitmap);
         }
 
-//Convert bitmap to byte array
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        byte[] bitmapdata = bos.toByteArray();
 
-//write the bytes in file
-        try {
-            FileOutputStream fos = new FileOutputStream(f);
-            fos.write(bitmapdata);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        imageView.setImageBitmap(bitmap);
+        //write the bytes in file
         final PostPhotoTask postPhotoTask = new PostPhotoTask(communication, this);
-        postPhotoTask.execute(f);
+        postPhotoTask.execute(image);
 
+    }
+
+    private static String getRealPathFromURI_API19(Context context, Uri uri){
+        String filePath = "";
+        String wholeID = DocumentsContract.getDocumentId(uri);
+
+        // Split at colon, use second item in the array
+        String id = wholeID.split(":")[1];
+
+        String[] column = { MediaStore.Images.Media.DATA };
+
+        // where id is equal to
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column, sel, new String[]{ id }, null);
+
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return filePath;
     }
 }
