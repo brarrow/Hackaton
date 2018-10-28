@@ -23,33 +23,37 @@
 
     <TextView
         android:id="@+id/label_text_view"
-        android:layout_width="145dp"
-        android:layout_height="41dp"
+        android:layout_width="210dp"
+        android:layout_height="36dp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="-10dp"
+        android:background="#ffffff"
+        android:fontFamily="sans-serif"
         android:text="@string/label_text_view_text"
         android:textAlignment="center"
-        android:background="#6666ff"
+        android:textColor="@color/black_overlay"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="341dp"
-        android:layout_height="257dp"
+        android:layout_height="274dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
         android:contentDescription="@string/image_view_desc"
         app:layout_constraintBottom_toTopOf="@+id/list_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_text_view"
         app:srcCompat="@drawable/ic_launcher_background" />
 
 </android.support.constraint.ConstraintLayout>
