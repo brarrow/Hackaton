@@ -8,8 +8,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 public class PostPhotoTask extends AsyncTask<File, Integer, String> {

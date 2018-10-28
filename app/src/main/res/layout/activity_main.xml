@@ -29,10 +29,10 @@
         android:layout_gravity="bottom|end"/>
 
     <Button
-        android:id="@+id/btnSend"
+        android:id="@+id/btnGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"/>
+        android:layout_gravity="bottom|start"/>
 
     <ImageView
         android:id="@+id/ImageView"
